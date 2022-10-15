@@ -40,9 +40,7 @@ const App = () => {
       },
 
     });
-    // console.log(result);
 
-    //setCode(result.outputFiles[0].text);
     iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
   };
 
@@ -50,12 +48,18 @@ const App = () => {
   <html>
     <head></head>
     <body>
-    <div id="root"></div>
-    <script>
-      window.addEventListener('message', (event) => {
-        console.log(event.data);
+      <div id="root"></div>
+      <script>
+        window.addEventListener('message', (event) => {
+          try{
+            eval(event.data);
+          } catch (err){
+              const root = document.querySelector('#root');
+              root.innerHTML = '<div style="color: red;"><h4>Runtime Error</h4>' + err + '</div>';
+              throw err;
+          }
       }, false);
-    </script>
+      </script>
     </body>
   </html>
   `;
@@ -70,7 +74,7 @@ const App = () => {
         <button onClick={onClick}>Submit</button>
       </div>
       <pre>{code}</pre>
-      <iframe ref={iframe} sandbox="allow-scripts" src={html}/>
+      <iframe ref={iframe} sandbox="allow-scripts" srcDoc={html}/>
     </div>
   );
 };
