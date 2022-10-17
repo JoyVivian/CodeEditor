@@ -7,43 +7,32 @@ import CodeEditor from './components/code-editor';
 
 
 const App = () => {
-  const ref = useRef<any>();
   const iframe = useRef<any>();
   const [input, setInput] = useState('');
 
   const startService = async () => {
-    ref.current = await esbuild.initialize({
-      worker: true,
-      wasmURL: 'https://unpkg.com/esbuild-wasm@0.8.27/esbuild.wasm',
-    });
+    try{
+      await esbuild.initialize({
+        worker: true,
+        wasmURL: '/esbuild.wasm',
+      });
+    } catch (e) { console.log(e); }      
   };
+
   useEffect(() => {
     startService();
   }, []);
 
   const onClick = async () => {
-    if (!ref.current) {
-      return;
-    }
 
     iframe.current.srcdoc = html;
-    
-    const result = await ref.current.build({
-      entryPoints: ['index.js'],
-      bundle: true,
-      write: false,
-      plugins: [
-        unpkgPathPlugin(),
-        fetchPlugin(input)
-      ],
-      define: {
-        'process.env.NODE_ENV': '"production"',
-        global: 'window',
-      },
 
+    const result = await esbuild.transform(input, {
+      loader: 'jsx',
+      target: 'es2015'
     });
 
-    iframe.current.contentWindow.postMessage(result.outputFiles[0].text, '*');
+    iframe.current.contentWindow.postMessage(result.code, '*');
   };
 
   const html = `
@@ -68,9 +57,9 @@ const App = () => {
 
   return (
     <div>
-      <CodeEditor 
-      initialValue="const a = 1;"
-      onChange={(value) => setInput(value)}
+      <CodeEditor
+        initialValue="const a = 1;"
+        onChange={(value) => setInput(value)}
       />
       <textarea
         value={input}
@@ -79,7 +68,7 @@ const App = () => {
       <div>
         <button onClick={onClick}>Submit</button>
       </div>
-      <iframe ref={iframe} sandbox="allow-scripts" srcDoc={html}/>
+      <iframe ref={iframe} sandbox="allow-scripts" srcDoc={html} />
     </div>
   );
 };
