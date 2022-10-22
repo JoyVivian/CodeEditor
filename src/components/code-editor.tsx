@@ -1,37 +1,65 @@
+import './code-editor.css';
 import { useRef } from 'react';
-import MonacoEditor, {  OnMount  } from '@monaco-editor/react';
+import MonacoEditor, { OnMount } from '@monaco-editor/react';
+import prettier from "prettier";
+import parser from 'prettier/parser-babel';
+
 
 interface CodeEditorProps {
     initialValue: string;
     onChange(value: string): void;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({onChange, initialValue}) => {
-    const editorRef = useRef<any> ();
+// TODO: Add code highlight function in this file using monaco-jsx-highlighter.
+const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
+    const editorRef = useRef<any>();
 
     const onEditorDidMount: OnMount = (editor, monacoEditor) => {
         editorRef.current = editor;
         editor.onDidChangeModelContent(() => onChange(editor.getValue()));
-        editor.getModel()?.updateOptions({ tabSize: 2});
+        editor.getModel()?.updateOptions({ tabSize: 2 });
     };
 
-    return <MonacoEditor
-        onMount={onEditorDidMount}
-        value={initialValue}
-        theme="vs-dark"
-        language="javascript"
-        height="500px"
-        options={{
-            wordWrap: 'on',
-            minimap: { enabled: false },
-            showUnused: false,
-            folding: false,
-            lineNumbersMinChars: 3,
-            fontSize: 16,
-            scrollBeyondLastLine: false,
-            automaticLayout: true,
-        }}
-    />;
+    const onFormatClick = () => {
+        // Get current value from editor
+        const currentCode = editorRef.current?.getValue();
+        
+        // Format that value.
+        const formattedCode = prettier.format(currentCode, {
+            parser: 'babel',
+            plugins: [parser],
+            useTabs: false,
+            semi: true,
+            singleQuote: true,
+        }).replace(/\n$/, '');
+
+        // Set the formatted value back in the editor.
+        editorRef.current.setValue(formattedCode);
+    }
+
+    return (
+        <div className="editor-wrapper">
+            <button className="button button-format is-primary is-small" onClick={onFormatClick}>Format</button>
+
+            <MonacoEditor
+                onMount={onEditorDidMount}
+                value={initialValue}
+                theme="vs-dark"
+                language="javascript"
+                height="500px"
+                options={{
+                    wordWrap: 'on',
+                    minimap: { enabled: false },
+                    showUnused: false,
+                    folding: false,
+                    lineNumbersMinChars: 3,
+                    fontSize: 16,
+                    scrollBeyondLastLine: false,
+                    automaticLayout: true,
+                }}
+            />
+        </div>
+    );
 };
 
 export default CodeEditor;
