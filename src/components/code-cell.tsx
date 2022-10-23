@@ -1,6 +1,6 @@
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState} from 'react';
 import CodeEditor from './code-editor';
 import Preview from './preview';
 import { setup } from '../bundler/setup';
@@ -11,12 +11,7 @@ const CodeCell = () => {
   const [input, setInput] = useState('');
   const [code, setCode] = useState('');
   
-  // TODO: Remove the cannot initialize() more once error message away.
-  // Initialize the esbuild-wasm only once.
-  useEffect(() => {
-    setup();
-  }, [])
-
+  // TODO: Figure out a better way to initialize esbuild only once.
   const onClick = async () => {
     // Bundle the input code and get the result.
     const result = await bundle(input);
