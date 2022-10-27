@@ -33,7 +33,11 @@ const Preview: React.FC<PreviewProps> = ({ code }) => {
 
   useEffect(() => {
     iframe.current.srcdoc = html;
-    iframe.current.contentWindow.postMessage(code, '*');
+
+    // Add a timeout to make sure that the broswer has enough time to update the srcdoc.
+    setTimeout(() => {
+      iframe.current.contentWindow.postMessage(code, '*');
+    }, 50)
   }, [code])
 
 

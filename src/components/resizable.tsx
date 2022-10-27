@@ -15,7 +15,7 @@ const Resizeable: React.FC<ResizableProps> = ({
     let resizableProps: ResizableBoxProps;
     const [innerHeight, SetInnerHeight] = useState(window.innerHeight);
     const [innerWidth, SetInnerWidth] = useState(window.innerWidth);
-
+    const [width,  setWidth] = useState(window.innerWidth * 0.75);
     useEffect(() => {
         let timer: any;
         const listener = () => {
@@ -26,6 +26,9 @@ const Resizeable: React.FC<ResizableProps> = ({
             timer = setTimeout(() => {
                 SetInnerHeight(window.innerHeight);
                 SetInnerWidth(window.innerWidth);
+                if (window.innerWidth * 0.75 < width) {
+                    setWidth(window.innerWidth * 0.75);
+                }
             }, 100);
         }
         window.addEventListener('resize', listener);
@@ -39,10 +42,13 @@ const Resizeable: React.FC<ResizableProps> = ({
         resizableProps = {
             className: 'resize-horizontal',
             height: Infinity,
-            width: innerWidth * 0.75,
+            width,
             resizeHandles: ['e'],
             maxConstraints: [innerWidth * 0.75, Infinity],
             minConstraints: [innerWidth * 0.2, Infinity],
+            onResizeStop:  (event, data) => {
+                setWidth (data.size.width);
+            },
         };
     } else {
         resizableProps = {
