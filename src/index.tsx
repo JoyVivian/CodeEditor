@@ -2,8 +2,9 @@ import 'bulmaswatch/superhero/bulmaswatch.min.css';
 import ReactDOM from 'react-dom/client';
 import { useEffect } from 'react';
 import CodeCell from './components/code-cell';
-import { setup } from './bundler/setup';
+import { setup } from './bundler/index';
 import TextEditor from './components/text-editor';
+
 
 const App = () => {
 
@@ -14,8 +15,8 @@ const App = () => {
 
   return (
     <div>
-      <TextEditor />
-      {/* <CodeCell /> */}
+      {/* <TextEditor /> */}
+      <CodeCell />
     </div>
   );
 };
