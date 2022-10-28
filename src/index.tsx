@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import { useEffect } from 'react';
 import CodeCell from './components/code-cell';
 import { setup } from './bundler/setup';
+import TextEditor from './components/text-editor';
 
 const App = () => {
 
@@ -13,7 +14,8 @@ const App = () => {
 
   return (
     <div>
-      <CodeCell />
+      <TextEditor />
+      {/* <CodeCell /> */}
     </div>
   );
 };

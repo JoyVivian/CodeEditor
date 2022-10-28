@@ -11,25 +11,20 @@ const CodeCell = () => {
 
   const [input, setInput] = useState('');
   const [code, setCode] = useState('');
+  const [err, setErr] = useState('');
 
   useEffect(() => {
     const timer = setTimeout(async () => {
       const output = await bundle(input);
-      setCode(output);
+      setCode(output.code);
+      setErr(output.err);
     }, 500);
-
+    
     return () => {
       clearTimeout(timer);
     };
 
   }, [input]); 
-
-  // TODO: Figure out a better way to initialize esbuild only once.
-  const onClick = async () => {
-    // Bundle the input code and get the result.
-    const result = await bundle(input);
-    setCode(result);
-  };
 
   return (
     <Resizeable direction='vertical'>
@@ -40,7 +35,7 @@ const CodeCell = () => {
             onChange={(value) => setInput(value)}
           />
         </Resizeable>
-        <Preview code={code} />
+        <Preview code={code} err={err}/>
       </div>
     </Resizeable>
   );
