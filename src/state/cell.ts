@@ -5,3 +5,4 @@ export interface Cell {
     type: 'code' | 'markdown';
     content: string;
 }
+
