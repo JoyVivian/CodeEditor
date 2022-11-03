@@ -18,6 +18,7 @@ const initialState: CellsState = {
     data: {}
 };
 
+// TODO: Implement this using immer.
 const reducer = (
     state: CellsState = initialState
     , action: Action): CellsState => {
