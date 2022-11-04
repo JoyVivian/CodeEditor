@@ -1,12 +1,19 @@
 import "./text-editor.css";
 import { useState, useEffect, useRef } from "react";
 import MDEditor from "@uiw/react-md-editor";
+import { Cell } from "../state";
+import { useActions } from "../hooks/use-actions";
+
+
+interface TextEditorProps {
+    cell: Cell;
+}
 
 // TODO: There exists a bug when remove all the content of the editor. 
-const TextEditor: React.FC = () => {
+const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
     const ref = useRef<HTMLDivElement | null>(null);
-    const [value, setValue] = useState("write down some thoughts about the code.");
     const [editing, setEditing] = useState(false);
+    const { updateCell } = useActions();
     
     useEffect(() => {
         const listener = (event: MouseEvent) => {
@@ -24,14 +31,14 @@ const TextEditor: React.FC = () => {
 
     if (editing) {
         return <div className="text-editor" ref={ref} data-color-mode="dark">
-            <MDEditor value={value} onChange={(value = "") => {
-                setValue(value);
+            <MDEditor value={cell.content} onChange={(value = "") => {
+                updateCell(cell.id, value || '');
             }} />
         </div>
     } else {
         return (
             <div className="text-editor" onClick={() => {setEditing(true);}} data-color-mode="dark">
-                <MDEditor.Markdown source={value} />
+                <MDEditor.Markdown source={cell.content || 'Click to edit'}  />
             </div>
         );
     }

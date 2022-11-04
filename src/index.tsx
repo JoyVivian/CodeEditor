@@ -1,7 +1,7 @@
 import 'bulmaswatch/superhero/bulmaswatch.min.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import ReactDOM from 'react-dom/client';
 import { useEffect } from 'react';
-import CodeCell from './components/code-cell';
 import { setup } from './bundler/index';
 import { Provider } from 'react-redux';
 import { store } from './state';
