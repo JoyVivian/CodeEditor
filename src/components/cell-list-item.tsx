@@ -3,6 +3,7 @@ import { Cell } from '../state';
 import CodeCell from './code-cell';
 import TextEditor from './text-editor';
 import ActionBar from './action-bar';
+import AddCell from './add-cell';
 
 interface CellListItemProps {
     cell: Cell
