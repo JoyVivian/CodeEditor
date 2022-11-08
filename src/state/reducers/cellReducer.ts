@@ -48,7 +48,7 @@ const reducer = produce((
 
 
                 return state;
-            case ActionType.INSERT_CELL_BEFORE:
+            case ActionType.INSERT_CELL_AFTER:
                 const cell: Cell = {
                     content: '',
                     type: action.payload.type,
@@ -62,11 +62,11 @@ const reducer = produce((
                 const hasIndex = state.order.findIndex(id => id ===action.payload.id);
                 
                 if (hasIndex < 0) {
-                    // The id cannnot be found, put the cell at the end.
-                    state.order.push(cell.id);
+                    // The id cannnot be found, put the cell at the start.
+                    state.order.unshift(cell.id);
                 } else {
                     // The id is found, put the cell before the cell with current id.
-                    state.order.splice(hasIndex, 0, cell.id);
+                    state.order.splice(hasIndex + 1, 0, cell.id);
                 }
 
                 return state;
