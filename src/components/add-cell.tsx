@@ -1,4 +1,4 @@
-// import '.add-cell.css'
+import "./add-cell.css"
 import { useActions } from '../hooks/use-actions';
 
 interface AddCellProps {
@@ -8,9 +8,22 @@ interface AddCellProps {
 const AddCell: React.FC<AddCellProps> = ({ nextCellId }) => {
     const { insertCellBefore } = useActions();
 
-    return <div>
-        <button onClick={() => insertCellBefore(nextCellId, 'code')}>Code</button>
-        <button onClick={() => insertCellBefore(nextCellId, 'markdown')}>Markdown</button>
+    return <div className='add-cell'>
+        <div className="add-buttons">
+            <button className="button is-rounded is-primary is-small" onClick={() => insertCellBefore(nextCellId, 'code')}>
+                <span className="icon is-small">
+                    <i className="fas fa-plus" />
+                </span>
+                <span>Code</span>
+                </button>
+            <button className="button is-rounded is-primary is-small" onClick={() => insertCellBefore(nextCellId, 'markdown')}>
+                <span className="icon is-small">
+                    <i className="fas fa-plus" />
+                </span>
+                <span>Markdown</span>
+                </button>
+        </div>
+        <div className='divider'></div>
     </div>
 };
 
