@@ -1,9 +1,9 @@
-import { useEffect, useRef } from 'react';
-import './preview.css';
+import { useEffect, useRef } from 'react'
+import './preview.css'
 
 interface PreviewProps {
-  code: string;
-  err: string;
+  code: string
+  err: string
 }
 
 const html = `
@@ -36,32 +36,26 @@ const html = `
       </script>
     </body>
   </html>
-  `;
-
+  `
 
 const Preview: React.FC<PreviewProps> = ({ code, err }) => {
-  const iframe = useRef<any>();
+  const iframe = useRef<any>()
 
   useEffect(() => {
-    iframe.current.srcdoc = html;
+    iframe.current.srcdoc = html
 
     // Add a timeout to make sure that the broswer has enough time to update the srcdoc.
     setTimeout(() => {
-      iframe.current.contentWindow.postMessage(code, '*');
+      iframe.current.contentWindow.postMessage(code, '*')
     }, 50)
-  }, [code]);
+  }, [code])
 
   return (
-    <div className="preview-wrapper">
-      <iframe
-        title="preview"
-        ref={iframe}
-        sandbox="allow-scripts"
-        srcDoc={html}
-      />
+    <div className='preview-wrapper'>
+      <iframe title='preview' ref={iframe} sandbox='allow-scripts' srcDoc={html} />
       {err && <div className='preview-error'>{err}</div>}
     </div>
-  );
-};
+  )
+}
 
-export default Preview;
+export default Preview

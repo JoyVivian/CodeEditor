@@ -23,5 +23,14 @@
   "include": [
     "src"
   ],
-  "types": ["react/next", "react-dom/next"]
+  "types": [
+    "react/next",
+    "react-dom/next"
+  ],
+  "typedocOptions": {
+    "entryPoints": [
+      "src/index.tsx"
+    ],
+    "out": "docs"
+  }
 }
