@@ -1,5 +1,5 @@
 import 'bulmaswatch/superhero/bulmaswatch.min.css'
-
+import './code-cell.css'
 import { useEffect } from 'react'
 import CodeEditor from './code-editor'
 import Preview from './preview'
@@ -15,22 +15,21 @@ interface CodeCellProps {
 
 const CodeCell: React.FC<CodeCellProps> = ({ cell }: CodeCellProps) => {
   const { updateCell, createBundle } = useActions()
-  const bundle = useTypedSelector((state) => state.bundles[cell.id]);
+  const bundle = useTypedSelector((state) => state.bundles[cell.id])
 
   useEffect(() => {
     if (!bundle) {
-      createBundle(cell.id, cell.content);
-      return;
+      createBundle(cell.id, cell.content)
+      return
     }
 
     const timer = setTimeout(async () => {
-        createBundle(cell.id, cell.content);
+      createBundle(cell.id, cell.content)
     }, 750)
 
     return () => {
       clearTimeout(timer)
     }
-  
   }, [cell.content, cell.id, createBundle])
 
   return (
@@ -42,11 +41,17 @@ const CodeCell: React.FC<CodeCellProps> = ({ cell }: CodeCellProps) => {
             onChange={(value) => updateCell(cell.id, value)}
           />
         </Resizeable>
-        {
-          !bundle || bundle.loading 
-          ? (<div>Loading...</div>)
-          : (<Preview code={bundle.code} err={bundle.err} />)
-        }
+        <div className='progress-wrapper'>
+          {!bundle || bundle.loading ? (
+            <div className='progress-cover'>
+              <progress className='progress is-small is-primary' max='100'>
+                Loading
+              </progress>
+            </div>
+          ) : (
+            <Preview code={bundle.code} err={bundle.err} />
+          )}
+        </div>
       </div>
     </Resizeable>
   )
