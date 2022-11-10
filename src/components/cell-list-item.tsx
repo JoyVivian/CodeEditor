@@ -9,7 +9,7 @@ interface CellListItemProps {
   cell: Cell
 }
 
-const CellListItem: React.FC<CellListItemProps> = ({ cell }) => {
+const CellListItem: React.FC<CellListItemProps> = ({ cell }: CellListItemProps) => {
   // TODO: The action bar in the markdown cell cover some button.
   // TODO: Make the action bar above the markdownm cell the same as code cell.
   let child: JSX.Element

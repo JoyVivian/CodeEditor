@@ -11,7 +11,7 @@ interface ActionBarProps {
  * @param id - The id of the current cell.
  * @returns A action bar component.
  */
-const ActionBar: React.FC<ActionBarProps> = ({ id }) => {
+const ActionBar: React.FC<ActionBarProps> = ({ id }: ActionBarProps) => {
   const { moveCell, deleteCell } = useActions()
 
   return (

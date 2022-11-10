@@ -9,7 +9,7 @@ interface TextEditorProps {
 }
 
 // TODO: There exists a bug when remove all the content of the editor.
-const TextEditor: React.FC<TextEditorProps> = ({ cell }) => {
+const TextEditor: React.FC<TextEditorProps> = ({ cell }: TextEditorProps) => {
   const ref = useRef<HTMLDivElement | null>(null)
   const [editing, setEditing] = useState(false)
   const { updateCell } = useActions()

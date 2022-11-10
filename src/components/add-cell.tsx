@@ -7,7 +7,7 @@ interface AddCellProps {
   forceVisible?: boolean
 }
 
-const AddCell: React.FC<AddCellProps> = ({ forceVisible, previousCellId }) => {
+const AddCell: React.FC<AddCellProps> = ({ forceVisible, previousCellId }: AddCellProps) => {
   const { insertCellAfter } = useActions()
 
   return (

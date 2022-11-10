@@ -10,7 +10,7 @@ interface CodeEditorProps {
 }
 
 // TODO: Add code highlight function in this file using monaco-jsx-highlighter.
-const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ onChange, initialValue }: CodeEditorProps) => {
   const editorRef = useRef<any>()
 
   const onEditorDidMount: OnMount = (editor, monacoEditor) => {

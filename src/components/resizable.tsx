@@ -8,7 +8,7 @@ interface ResizableProps {
   children?: React.ReactNode
 }
 
-const Resizeable: React.FC<ResizableProps> = ({ direction, children }) => {
+const Resizeable: React.FC<ResizableProps> = ({ direction, children }: ResizableProps) => {
   let resizableProps: ResizableBoxProps
   const [innerHeight, SetInnerHeight] = useState(window.innerHeight)
   const [innerWidth, SetInnerWidth] = useState(window.innerWidth)
