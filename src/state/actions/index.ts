@@ -39,7 +39,7 @@ export interface BundleStartAction {
   }
 }
 
-export interface BundleComplete {
+export interface BundleCompleteAction {
   type: ActionType.BUNDLE_COMPLETE
   payload: {
     cellId: string
@@ -56,4 +56,4 @@ export type Action =
   | InsertCellAfterAction
   | UpdateCellAction
   | BundleStartAction
-  | BundleComplete
+  | BundleCompleteAction
