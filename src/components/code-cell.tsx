@@ -8,6 +8,7 @@ import './resizable.css'
 import { Cell } from '../state'
 import { useActions } from '../hooks/use-actions'
 import { useTypedSelector } from '../hooks/use-typed-selector'
+import { useCumulativeCode } from '../hooks/use-cumulative-code'
 
 interface CodeCellProps {
   cell: Cell
@@ -16,39 +17,22 @@ interface CodeCellProps {
 const CodeCell: React.FC<CodeCellProps> = ({ cell }: CodeCellProps) => {
   const { updateCell, createBundle } = useActions()
   const bundle = useTypedSelector((state) => state.bundles[cell.id])
-  const cumulativeCode = useTypedSelector((state) => {
-    const { data, order } = state.cells;
-    const orderedCells = order.map(id => data[id]);
-
-    const cumulativeCode = [];
-
-    for (const c of orderedCells) {
-      if (c.type === 'code') {
-        cumulativeCode.push(c.content);
-      }
-
-      if (c.id === cell.id) {
-        break;
-      }
-    }
-
-    return cumulativeCode;
-  });
+  const cumulativeCode = useCumulativeCode(cell.id);
 
   useEffect(() => {
     if (!bundle) {
-      createBundle(cell.id, cumulativeCode.join('\n'));
-      return;
+      createBundle(cell.id, cumulativeCode);
+      return
     }
 
     const timer = setTimeout(async () => {
-      createBundle(cell.id,cumulativeCode.join('\n'));
-    }, 750);
+      createBundle(cell.id, cumulativeCode);
+    }, 750)
 
     return () => {
       clearTimeout(timer);
     }
-  }, [cumulativeCode.join('\n'), cell.id, createBundle])
+  }, [cumulativeCode, cell.id, createBundle])
 
   return (
     <Resizeable direction='vertical'>

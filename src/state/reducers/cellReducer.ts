@@ -64,7 +64,8 @@ const reducer = produce((state: CellsState = initialState, action: Action) => {
         // The id cannnot be found, put the cell at the start.
         state.order.unshift(cell.id)
       } else {
-        // The id is found, put the cell before the cell with current id.
+        // The id is found, put the cell after the cell with current id.
+        console.log(hasIndex)
         state.order.splice(hasIndex + 1, 0, cell.id)
       }
 
