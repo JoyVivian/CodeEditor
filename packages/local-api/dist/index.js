@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.serve = void 0;
 const express_1 = __importDefault(require("express"));
 const http_proxy_middleware_1 = require("http-proxy-middleware");
+const cells_1 = require("./routes/cells");
 const path_1 = __importDefault(require("path"));
 const serve = (port, filename, dir, useProxy) => {
     const app = (0, express_1.default)();
@@ -18,7 +19,6 @@ const serve = (port, filename, dir, useProxy) => {
             ws: true,
             //   logLevel: "silent",
         }));
-        console.log(useProxy);
     }
     else {
         // Code for production environment.
@@ -26,6 +26,7 @@ const serve = (port, filename, dir, useProxy) => {
         app.use(express_1.default.static(path_1.default.dirname(packagePath)));
         console.log(useProxy);
     }
+    app.use((0, cells_1.createCellsRouter)(filename, dir));
     // If successfully start up the server and everything is as expected, call the `resolve` function.
     // If not successfully, call the reject function.
     return new Promise((resolve, reject) => {

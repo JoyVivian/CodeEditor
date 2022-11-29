@@ -5,6 +5,7 @@ import {
   Options,
   RequestHandler,
 } from "http-proxy-middleware";
+import { createCellsRouter } from "./routes/cells";
 
 import path from "path";
 
@@ -27,13 +28,14 @@ export const serve = (
         //   logLevel: "silent",
       })
     );
-    console.log(useProxy);
   } else {
     // Code for production environment.
     const packagePath = require.resolve("local-client/build/index.html");
     app.use(express.static(path.dirname(packagePath)));
     console.log(useProxy);
   }
+
+  app.use(createCellsRouter(filename, dir));
 
   // If successfully start up the server and everything is as expected, call the `resolve` function.
   // If not successfully, call the reject function.
