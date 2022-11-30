@@ -1,1 +1,1 @@
-[{"content":"","type":"code","id":"wlg5u"}]
+[{"content":"show(123);","type":"code","id":"wlg5u"}]
