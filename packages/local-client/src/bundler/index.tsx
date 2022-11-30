@@ -3,9 +3,11 @@ import { unpkgPathPlugin } from './plugins/unpkg-path-plugin'
 import { fetchPlugin } from './plugins/fetch-plugin'
 
 // Initialize esbuild.
-export const setup = async () => {
+let waiting: Promise<void>;
+
+export const setup = () => {
   try {
-    await esbuild.initialize({
+    waiting = esbuild.initialize({
       worker: true,
       wasmURL: '/esbuild.wasm',
     })
@@ -16,6 +18,7 @@ export const setup = async () => {
 
 export const bundle = async (rawCode: string) => {
   try {
+    await waiting
     const result = esbuild.build({
       entryPoints: ['index.js'],
       bundle: true,

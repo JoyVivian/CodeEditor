@@ -17,6 +17,8 @@ export const serve = (
 ) => {
   const app = express();
 
+  app.use(createCellsRouter(filename, dir));
+
   if (useProxy) {
     // Proxy to `http://localhost:3000`
     // http://localhost:3000 is not working.
@@ -35,8 +37,7 @@ export const serve = (
     console.log(useProxy);
   }
 
-  app.use(createCellsRouter(filename, dir));
-
+  
   // If successfully start up the server and everything is as expected, call the `resolve` function.
   // If not successfully, call the reject function.
   return new Promise<void>((resolve, reject) => {

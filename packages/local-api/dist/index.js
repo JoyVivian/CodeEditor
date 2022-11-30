@@ -10,6 +10,7 @@ const cells_1 = require("./routes/cells");
 const path_1 = __importDefault(require("path"));
 const serve = (port, filename, dir, useProxy) => {
     const app = (0, express_1.default)();
+    app.use((0, cells_1.createCellsRouter)(filename, dir));
     if (useProxy) {
         // Proxy to `http://localhost:3000`
         // http://localhost:3000 is not working.
@@ -26,7 +27,6 @@ const serve = (port, filename, dir, useProxy) => {
         app.use(express_1.default.static(path_1.default.dirname(packagePath)));
         console.log(useProxy);
     }
-    app.use((0, cells_1.createCellsRouter)(filename, dir));
     // If successfully start up the server and everything is as expected, call the `resolve` function.
     // If not successfully, call the reject function.
     return new Promise((resolve, reject) => {
