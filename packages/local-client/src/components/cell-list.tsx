@@ -2,7 +2,8 @@ import './cell-list.css'
 import { useTypedSelector } from '../hooks/use-typed-selector'
 import CellListItem from './cell-list-item'
 import AddCell from './add-cell'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
+import { useActions } from '../hooks/use-actions';
 
 const CellList: React.FC = () => {
   // Not to have a derive state stored in redux is a good practice.
@@ -12,7 +13,13 @@ const CellList: React.FC = () => {
     return order.map((id) => {
       return data[id]
     })
-  })
+  });
+
+  const { fetchCells, saveCells } = useActions();
+
+  useEffect(() => {
+    fetchCells();
+  }, []);
 
   const renderedCells = cells.map((cell) => (
     <Fragment key={cell.id}>
