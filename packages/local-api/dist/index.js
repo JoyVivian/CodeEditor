@@ -25,7 +25,6 @@ const serve = (port, filename, dir, useProxy) => {
         // Code for production environment.
         const packagePath = require.resolve("@codeair/local-client/build/index.html");
         app.use(express_1.default.static(path_1.default.dirname(packagePath)));
-        console.log(useProxy);
     }
     // If successfully start up the server and everything is as expected, call the `resolve` function.
     // If not successfully, call the reject function.
