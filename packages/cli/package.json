@@ -1,6 +1,6 @@
 {
   "name": "codeair",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The CLI for CodeAir",
   "files": [
     "dist"
@@ -20,10 +20,10 @@
     "@codeair/local-client": "^1.0.0"
   },
   "devDependencies": {
+    "@codeair/local-api": "^1.0.1",
     "@types/node": "^18.11.9",
+    "commander": "^9.4.1",
     "esbuild": "^0.15.16",
-    "typescript": "^4.8.4",
-    "@codeair/local-api": "^1.0.0",
-    "commander": "^9.4.1"
+    "typescript": "^4.8.4"
   }
 }

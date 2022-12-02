@@ -34,7 +34,6 @@ export const serve = (
     // Code for production environment.
     const packagePath = require.resolve("@codeair/local-client/build/index.html");
     app.use(express.static(path.dirname(packagePath)));
-    console.log(useProxy);
   }
 
   
