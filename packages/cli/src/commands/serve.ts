@@ -1,6 +1,6 @@
 import path from "path";
 import { Command } from "commander";
-import { serve } from "local-api";
+import { serve } from "@codeair/local-api";
 
 // Use to determine whether in production environment or development environment.
 const isProduction = process.env.NODE_ENV === "production";

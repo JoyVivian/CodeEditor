@@ -1,12 +1,19 @@
 {
-  "name": "local-api",
+  "name": "@codeair/local-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "local-api for Codeair",
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "start": "tsc --watch --preserveWatchOutput",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublishOnly": "tsc"
   },
   "author": "Wei Zhang",
   "license": "ISC",
@@ -19,6 +26,6 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "http-proxy-middleware": "^2.0.6",
-    "local-client": "^0.1.0"
+    "@codeair/local-client": "^0.1.0"
   }
 }
