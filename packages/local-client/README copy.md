@@ -44,6 +44,6 @@ Add and update README.md file.
 
 CodeAir is based on Stephen Grider's Course on Udemy and will be continued to enhance. Thanks for his fabulous course and here is the course [link](https://www.udemy.com/course/react-and-typescript-build-a-portfolio-project/).
 
-### Wnats to contribute?
+### Wants to contribute?
 
 [Github](https://github.com/JoyVivian/codeair)
