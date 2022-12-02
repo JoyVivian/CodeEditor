@@ -1,6 +1,6 @@
 {
   "name": "codeair",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The CLI for CodeAir",
   "files": [
     "dist"
@@ -17,10 +17,10 @@
   "author": "Wei Zhang",
   "license": "ISC",
   "dependencies": {
-    "@codeair/local-client": "^1.0.0"
+    "@codeair/local-client": "^1.0.3"
   },
   "devDependencies": {
-    "@codeair/local-api": "^1.0.2",
+    "@codeair/local-api": "^1.0.3",
     "@types/node": "^18.11.9",
     "commander": "^9.4.1",
     "esbuild": "^0.15.16",
