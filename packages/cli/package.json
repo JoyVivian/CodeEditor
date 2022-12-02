@@ -20,10 +20,10 @@
     "@codeair/local-client": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.11.9",
-    "esbuild": "^0.15.16",
-    "typescript": "^4.8.4",
     "@codeair/local-api": "^1.0.0",
-    "commander": "^9.4.1"
+    "@types/node": "^18.11.9",
+    "commander": "^9.4.1",
+    "esbuild": "^0.15.16",
+    "typescript": "^4.8.4"
   }
 }
